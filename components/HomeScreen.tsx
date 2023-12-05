@@ -1,21 +1,30 @@
 import React, { useRef, useEffect } from "react";
-import { View, Text, Pressable, StyleSheet, Animated } from "react-native";
+import { View, Text, Pressable, StyleSheet, Animated, StatusBar} from "react-native";
 import { BookOpenIcon, BuildingLibraryIcon, ChevronRightIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-
 type RootStackParamList = {
   Home: undefined;
-  ReturnPage: { param1: string; param2: number };
+  Categories: { param1: string; param2: number };
   // ... other screen definitions
 };
 
 type NavigationProps<T extends keyof RootStackParamList> = {
+  navigate(arg0: string, arg1: { param1: string; param2: number; }): void;
   navigation: NativeStackNavigationProp<RootStackParamList, T>;
 };
 
 export default function HomePage() {
+
+  useEffect(() => {
+    StatusBar.setBarStyle('light-content');
+    
+    // Revert the status bar text color to default when the component unmounts
+    return () => {
+      StatusBar.setBarStyle('default');
+    };
+  }, []);
   const navigation: NavigationProps<'Home'> = useNavigation();
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -27,39 +36,48 @@ export default function HomePage() {
     }).start();
   }, [fadeAnim]);
 
+  const dynamicStyles = {
+    buttonColor: "#3498db",
+    iconColor: "blue",
+    textColor: "#fff",
+    pressedButtonColor: "blue",
+    pressedIconColor: "#3498db",
+    pressedTextColor: "blue",
+  };
+
   return (
     <Animated.View style={[styles.homePageContainer, { opacity: fadeAnim }]}>
       <View style={styles.servicesContainer}>
         <Text style={styles.title}>
-          <BuildingLibraryIcon style={styles.libraryIcon} size={25} color={"blue"}/>
-            Welcome to the Library Kiosk
+          <BuildingLibraryIcon style={styles.libraryIcon} size={25} color={dynamicStyles.iconColor} />
+          Welcome to the Library Kiosk
         </Text>
         <Text style={styles.subtitle}>Explore our services:</Text>
         <Pressable
           style={({ pressed }) => [
             styles.serviceButton,
-            { backgroundColor: pressed ? "#2980b9" : "#3498db" },
+            { backgroundColor: pressed ? dynamicStyles.pressedButtonColor : dynamicStyles.buttonColor },
           ]}
           onPress={() =>
-            navigation.navigation.navigate("ReturnPage", { param1: "-1", param2: -1 })
+            navigation.navigate("Categories", { param1: "-1", param2: -1 })
           }
         >
-          <BookOpenIcon color={"blue"} style={styles.buttonIcon} />
-          <Text style={styles.buttonText}>Borrow a Book</Text>
-          <ChevronRightIcon size={25} color={"blue"} style={styles.icon} />
+          <BookOpenIcon color={dynamicStyles.iconColor} style={styles.buttonIcon} />
+          <Text style={[styles.buttonText, { color: dynamicStyles.textColor }]}>Borrow a Book</Text>
+          <ChevronRightIcon size={25} color={dynamicStyles.iconColor} style={styles.icon} />
         </Pressable>
         <Pressable
           style={({ pressed }) => [
             styles.serviceButton,
-            { backgroundColor: pressed ? "#2980b9" : "#3498db" },
+            { backgroundColor: pressed ? dynamicStyles.pressedButtonColor : dynamicStyles.buttonColor },
           ]}
-          onPress={() => {
-            /* Handle onPress for "Return a Book" */
-          }}
+          onPress={() =>
+            navigation.navigate("Return", { param1: "-1", param2: -1 })
+          }
         >
-          <BookOpenIcon color={"blue"} style={styles.buttonIcon} />
-          <Text style={styles.buttonText}>Return a Book</Text>
-          <ChevronRightIcon size={25} color={"blue"} style={styles.icon} />
+          <BookOpenIcon color={dynamicStyles.iconColor} style={styles.buttonIcon} />
+          <Text style={[styles.buttonText, { color: dynamicStyles.textColor }]}>Return a Book</Text>
+          <ChevronRightIcon size={25} color={dynamicStyles.iconColor} style={styles.icon} />
         </Pressable>
       </View>
     </Animated.View>
@@ -102,8 +120,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   serviceButton: {
-    backgroundColor: "#3498db",
-    color: "#fff",
     fontSize: 18,
     padding: 12,
     marginVertical: 10,
@@ -113,7 +129,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   buttonText: {
-    color: "#fff",
     marginLeft: 10,
   },
   buttonIcon: {
