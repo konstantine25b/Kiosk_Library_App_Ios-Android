@@ -1,4 +1,4 @@
-<img width="1440" alt="Screenshot 2023-12-06 at 21 51 24" src="https://github.com/konstantine25b/Kiosk_Library_App_Ios-Android/assets/102245292/7fd3f83f-6f71-4ae5-af87-12ba8cfb5e69"><img width="1440" alt="Screenshot 2023-12-06 at 21 48 27" src="https://github.com/konstantine25b/Kiosk_Library_App_Ios-Android/assets/102245292/4ea3b5d6-4126-4970-9ddf-1e290106579d"># Library Kiosk (React Native) 
+# Library Kiosk (React Native) 
 The Library Kiosk (React Native) is a mobile application built with React Native and TypeScript, serving as a virtual library where users can explore, borrow, and return books. The back-end is simulated using the mock API provided by mockapi.io.
 
 # Features Book Browsing:
