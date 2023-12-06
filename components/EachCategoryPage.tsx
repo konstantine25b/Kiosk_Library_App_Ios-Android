@@ -86,6 +86,7 @@ export default function EachCategoryPage({ route }: any) {
   };
 
   return (
+    <>
     <BooksContainer>
       <CategoryTitle>{categoryName } Books</CategoryTitle>
       <BooksList>
@@ -136,19 +137,22 @@ export default function EachCategoryPage({ route }: any) {
         </Pressable>
       </PaginationContainer>
 
-      {/* {selectedBook && showAuthenticationModal && (
+      
+     
+    </BooksContainer>
+    {selectedBook && showAuthenticationModal && (
         <AuthenticationModal
           onClose={handleCloseModal}
-          onLogin={(username, password) => handleLogin(username, password)}
+          onLogin={(username: string, password: string) => handleLogin(username, password)}
         />
       )}
-      {showConfirmationModal && (
+       {showConfirmationModal && (
         <BorrowConfirmationModal
           onClose={handleConfirmationModalClose}
           success={borrowSuccess}
         />
-      )} */}
-    </BooksContainer>
+      )}
+    </>
   );
 }
 
@@ -156,6 +160,7 @@ const BooksContainer = styled.View`
   padding: 20px;
   background-color: #f4f4f4;
   flex: 1;
+  justify-content: "center";
 `;
 
 const CategoryTitle = styled.Text`

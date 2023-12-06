@@ -9,6 +9,7 @@ const colors = {
     bookTitle: "#3498db",
     bookInfo: "#fff",
     borderColor: "#ddd",
+    black:"#010c05",
   };
   
   export default colors;
