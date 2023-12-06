@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  Pressable,
-  Button,
-  StyleSheet,
-  StatusBar,
-  ScrollView,
-} from "react-native";
+import { View, Text, FlatList, Pressable, StatusBar } from "react-native";
 import { useQuery } from "react-query";
 import styled from "@emotion/native";
 import { useNavigation } from "@react-navigation/native";
+import colors from "./styles/colors";
 
 // Interface representing the shape of a book category
 interface Category {
@@ -92,76 +84,74 @@ export default function BookCategories() {
 
   // Render the component
   return (
-    
-      <CategoriesContainer>
-        {/* Pagination controls */}
-        <PaginationContainer>
-          <PaginationButton
-            onPress={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            <CategoryText>Previous Page</CategoryText>
-          </PaginationButton>
+    <CategoriesContainer>
+      {/* Pagination controls */}
+      <PaginationContainer>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#2980b9" : "#3498db",
+              borderRadius: 8,
+              padding: 10,
+            },
+          ]}
+          onPress={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          <CategoryText>Previous Page</CategoryText>
+        </Pressable>
 
-          {/* Page indicator */}
-          <PageIndicator>
-            Page {currentPage} of {totalPages}
-          </PageIndicator>
+        {/* Page indicator */}
+        <PageIndicator>
+          Page {currentPage} of {totalPages}
+        </PageIndicator>
 
-          <PaginationButton
-            onPress={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            <CategoryText>Next Page</CategoryText>
-          </PaginationButton>
-        </PaginationContainer>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#2980b9" : "#3498db",
+              borderRadius: 8,
+              padding: 10,
+            },
+          ]}
+          onPress={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          <CategoryText>Next Page</CategoryText>
+        </Pressable>
+      </PaginationContainer>
 
-        {/* List of book categories */}
-        <CategoriesList>
-          <FlatList
-            data={visibleCategories}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <Pressable
-                style={({ pressed }) => [
-                  {
-                    backgroundColor: pressed ? "#2980b9" : "#3498db",
-                    borderRadius: 8,
-                    padding: 10,
-                    margin: 10,
-                    marginLeft: 20,
-                    marginRight: 20,
-                  },
-                ]}
-              >
-                <CategoryText>{item.name}</CategoryText>
-              </Pressable>
-            )}
-          />
-        </CategoriesList>
-      </CategoriesContainer>
-
+      {/* List of book categories */}
+      <CategoriesList>
+        <FlatList
+          data={visibleCategories}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Pressable
+              style={({ pressed }) => [
+                {
+                  backgroundColor: pressed ? "#2980b9" : "#3498db",
+                  borderRadius: 8,
+                  padding: 10,
+                  margin: 10,
+                  marginLeft: 20,
+                  marginRight: 20,
+                },
+              ]}
+            >
+              <CategoryText>{item.name}</CategoryText>
+            </Pressable>
+          )}
+        />
+      </CategoriesList>
+    </CategoriesContainer>
   );
 }
 
 // Styled components for better organization and readability
 
-const CategoriesContainer = styled.View`
-  padding: 20px;
-  border-radius: 10px;
-  padding-bottom: 100px;
-  padding-top: 40px;
-  background-color: #ffffff;
-  height: 100%;
-`;
-
 const CategoriesList = styled.View`
   margin-top: 10px;
-`;
-
-const CategoryText = styled.Text`
-  font-size: 16px;
-  color: #fff;
 `;
 
 const PaginationContainer = styled.View`
@@ -170,12 +160,18 @@ const PaginationContainer = styled.View`
   margin-top: 20px;
 `;
 
-const PaginationButton = styled.Pressable`
-  background-color: #3498db;
-  color: #fff;
+const CategoriesContainer = styled.View`
+  padding: 20px;
+  border-radius: 10px;
+  padding-bottom: 100px;
+  padding-top: 40px;
+  background-color: ${colors.modalBackground};
+  height: 100%;
+`;
+
+const CategoryText = styled.Text`
   font-size: 16px;
-  padding: 10px;
-  border-radius: 8px;
+  color: ${colors.bookInfo};
 `;
 
 const PageIndicator = styled.Text`
@@ -184,18 +180,12 @@ const PageIndicator = styled.Text`
 
 const LoadingContainer = styled.Text`
   font-size: 16px;
-  color: #3498db;
+  color: ${colors.bookTitle};
   margin-top: 20px;
 `;
 
 const ErrorContainer = styled.Text`
   font-size: 16px;
-  color: #e74c3c;
+  color: ${colors.bookTitle};
   margin-top: 20px;
-`;
-
-const CategoriesHeading = styled.Text`
-  font-size: 24px;
-  margin-bottom: 15px;
-  color: #3498db;
 `;

@@ -3,6 +3,7 @@ import { View, Text, Pressable, StyleSheet, Animated, StatusBar} from "react-nat
 import { BookOpenIcon, BuildingLibraryIcon, ChevronRightIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import colors from "./styles/colors";
 
 type RootStackParamList = {
   Home: undefined;
@@ -89,14 +90,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#2b5876",
+    backgroundColor: colors.backgroundOverlay,
   },
   servicesContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.modalBackground,
     padding: 20,
     gap: 20,
     borderRadius: 10,
-    shadowColor: "#000",
+    shadowColor: colors.boxShadow,
     shadowOffset: {
       width: 0,
       height: 4,
