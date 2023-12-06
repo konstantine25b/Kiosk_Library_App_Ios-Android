@@ -4,12 +4,32 @@ import { useQuery } from "react-query";
 import styled from "@emotion/native";
 import { useNavigation } from "@react-navigation/native";
 import colors from "./styles/colors";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 // Interface representing the shape of a book category
+interface Book {
+  id: string;
+  title: string;
+  author: string;
+  year: number;
+}
 interface Category {
   id: string;
   name: string;
+  books: Book
 }
+
+
+type RootStackParamList = {
+  Home: undefined;
+  Categories: { param1: Category; param2: number };
+  // ... other screen definitions
+};
+
+type NavigationProps<T extends keyof RootStackParamList> = {
+  navigate(arg0: String, arg1: { param1: Category; param2: number; }): void;
+  navigation: NativeStackNavigationProp<RootStackParamList, T>;
+};
 
 // URL for fetching book categories from the mock API
 const BOOK_CATEGORIES_API =
@@ -45,7 +65,7 @@ export default function BookCategories() {
     };
   }, []);
 
-  const navigation = useNavigation();
+  const navigation: NavigationProps<'Home'> = useNavigation();
 
   // Use React Query to fetch book categories
   const {
@@ -138,6 +158,9 @@ export default function BookCategories() {
                   marginRight: 20,
                 },
               ]}
+              onPress={() =>
+                navigation.navigate("EachCategory", { param1: item, param2: -1 })
+              }
             >
               <CategoryText>{item.name}</CategoryText>
             </Pressable>
