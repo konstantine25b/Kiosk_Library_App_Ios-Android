@@ -8,6 +8,7 @@ import colors from "./styles/colors";
 type RootStackParamList = {
   Home: undefined;
   Categories: { param1: string; param2: number };
+  
   // ... other screen definitions
 };
 
