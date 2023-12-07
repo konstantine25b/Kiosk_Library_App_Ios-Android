@@ -53,7 +53,7 @@ const ModalHeader = styled(View)`
 const CloseButton = styled(Text)`
   font-size: ${fontSize.extraLarge}px;
   color: ${colors.closeIcon};
-  cursor: pointer;
+
   font-size: 30px;
 `;
 const HeaderText = styled.Text`

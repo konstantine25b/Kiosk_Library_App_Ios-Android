@@ -71,13 +71,13 @@ export default function EachCategoryPage({ route }: any) {
       })
       .then((user) => {
         console.log("New user:", user);
-        alert("Sign Up successful!");
+        
         setBorrowSuccess(true);
         setShowConfirmationModal(true);
       })
       .catch((error) => {
         console.error("Error:", error);
-        alert("Sign Up unsuccessful!");
+       
         setBorrowSuccess(false);
         setShowConfirmationModal(true);
       });

@@ -90,7 +90,7 @@ const ReturnBook: React.FC<ReturnBookProps> = () => {
           errorMessage: "",
         });
       } else {
-        console.error("Invalid book ID. Please enter a valid book ID.");
+        console.log("Invalid book ID. Please enter a valid book ID.");
         setReturnConfirmationModalData({
           success: false,
           userName: "",
@@ -99,7 +99,7 @@ const ReturnBook: React.FC<ReturnBookProps> = () => {
         });
       }
     } catch (error) {
-      console.error("Error fetching book categories:", error);
+      console.log("Error fetching book categories:", error);
       setReturnConfirmationModalData({
         success: false,
         userName: "",

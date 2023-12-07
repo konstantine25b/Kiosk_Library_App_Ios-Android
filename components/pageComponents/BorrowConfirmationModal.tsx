@@ -94,7 +94,7 @@ const HeaderText = styled.Text`
 const CloseButton = styled.Text`
   font-size: 30px;
   color: ${colors.closeIcon};
-  cursor: pointer;
+
 `;
 
 const ModalBody = styled.View`
